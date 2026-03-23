@@ -105,10 +105,10 @@ font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
 | 要素 | サイズ (clamp) | 用途 |
 |------|---------------|------|
-| h1 | `clamp(1.5rem, 4vw, 2.5rem)` | 主見出し |
-| h2 | `clamp(1.25rem, 3.5vw, 2rem)` | 副見出し |
-| h3 | `clamp(1.1rem, 2.5vw, 1.5rem)` | 小見出し |
-| p, li | `clamp(0.9rem, 2vw, 1.1rem)` | 本文 |
+| h1 | `clamp(1.8rem, 4vw, 2.8rem)` | 主見出し |
+| h2 | `clamp(1.4rem, 3.2vw, 2rem)` | 副見出し |
+| h3 | `clamp(1.2rem, 2.6vw, 1.6rem)` | 小見出し |
+| p, li | `clamp(1.1rem, 2vw, 1.3rem)` | 本文 |
 | small | `0.875rem` | キャプション |
 
 **clamp の利点**: レスポンシブに対応し、画面サイズに応じて適切なサイズに調整されます

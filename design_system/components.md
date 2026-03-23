@@ -12,7 +12,7 @@
 
 | Prop | Type | Default | 説明 |
 |------|------|---------|------|
-| gap | Number | 8 | カラム間の間隔（Tailwind のスケール） |
+| gap | String | '3rem' | カラム間の間隔（CSS単位を含む文字列） |
 | leftRatio | Number | 1 | 左カラムの幅比率 |
 | rightRatio | Number | 1 | 右カラムの幅比率 |
 
@@ -41,7 +41,7 @@
 
 **After**:
 ```vue
-<TwoColumnLayout :gap="8">
+<TwoColumnLayout gap="2rem">
   <template #left>左</template>
   <template #right>右</template>
 </TwoColumnLayout>

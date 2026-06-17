@@ -38,13 +38,15 @@
 #### Background Colors
 
 ```css
---color-bg: oklch(0.98 0.01 270);           /* 背景 */
---color-bg-soft: oklch(0.95 0.02 270);      /* ソフトな背景 */
+--color-bg: oklch(0.97 0.003 260);          /* 少し落とした白背景 */
+--color-bg-soft: oklch(0.97 0.003 260);     /* 白背景 */
+--slide-background: var(--color-bg);
 ```
 
 **使用例**:
 - `--color-bg`: スライドの基本背景
-- `--color-bg-soft`: カード、コードブロックの背景
+- `--color-bg-soft`: 背景と同じ値。派生デザインで必要な場合のために残す
+- `--slide-background`: スライド全体の背景
 
 ### ダークモード
 
@@ -59,21 +61,25 @@
 
 ### グラデーション
 
-#### 背景グラデーション（全スライド共通）
+#### 白背景（全スライド共通）
 
-上辺中央から横長に広がる青グラデーション。全スライドに自動適用されます。
+少し落とした白背景を標準にします。全スライドに自動適用されます。
 
 ```css
-background:
-  radial-gradient(ellipse 150% 40% at 50% 0%, oklch(0.5 0.15 220 / 0.35) 0%, oklch(0.5 0.15 220 / 0.1) 40%, transparent 70%),
-  linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
+background: var(--slide-background);
 ```
 
 **特徴**:
-- 起点: 上辺中央 (`at 50% 0%`)
-- 形状: 横に広く縦は浅い楕円 (`150% 40%`)
-- 中間色停止で滑らかにフェード (`40%` 地点)
-- 彩度を抑えた落ち着いた青み (`0.15`)
+- 少し落とした白背景を基準にするため、生成スライドの見た目が安定する
+- 本文や画像の背景を邪魔する装飾を入れない
+
+旧来のグレー基調グラデーションを使いたい場合は、スライド frontmatter に `class: soft-gradient-bg` を指定します。
+
+```md
+---
+class: soft-gradient-bg
+---
+```
 
 #### メイングラデーション (Purple to Blue)
 

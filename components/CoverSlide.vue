@@ -89,7 +89,7 @@ const props = withDefaults(defineProps<Props>(), {
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
-  color: oklch(0.85 0.02 270);
+  color: var(--color-text-muted);
 }
 
 .cover-social {

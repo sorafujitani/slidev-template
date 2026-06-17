@@ -16,8 +16,9 @@
   --color-text-muted: oklch(0.5 0.05 270);
 
   /* Background */
-  --color-bg: oklch(0.98 0.01 270);
-  --color-bg-soft: oklch(0.95 0.02 270);
+  --color-bg: oklch(0.97 0.003 260);
+  --color-bg-soft: oklch(0.97 0.003 260);
+  --slide-background: var(--color-bg);
 }
 
 .dark {
@@ -26,6 +27,7 @@
   --color-text-muted: oklch(0.6 0.05 270);
   --color-bg: oklch(0.15 0.02 270);
   --color-bg-soft: oklch(0.2 0.03 270);
+  --slide-background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
 }
 
 /* フォント設定 */
@@ -41,9 +43,17 @@
 /* 全スライド共通の背景 */
 #slideshow,
 .slidev-page {
-  background:
+  background: var(--slide-background) !important;
+  color: var(--color-text);
+}
+
+/* 旧来のグレー基調を使いたい場合は、スライドの class に soft-gradient-bg を指定 */
+.slidev-page:has(.soft-gradient-bg) {
+  --color-bg: oklch(0.98 0.01 270);
+  --color-bg-soft: oklch(0.95 0.02 270);
+  --slide-background:
     radial-gradient(ellipse 150% 40% at 50% 0%, oklch(0.5 0.15 220 / 0.35) 0%, oklch(0.5 0.15 220 / 0.1) 40%, transparent 70%),
-    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%) !important;
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
 }
 
 /* レイアウト設定 */

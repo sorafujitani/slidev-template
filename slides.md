@@ -1,5 +1,6 @@
 ---
 theme: default
+colorSchema: light
 background: false
 class: text-center
 highlighter: shiki
@@ -64,7 +65,7 @@ fonts:
   </div>
 </div>
 
-<div class="mt-6 text-sm text-gray-400">
+<div class="mt-6 text-sm" style="color: var(--color-text-muted)">
   ここに最近のTipsを記載
 </div>
 
@@ -208,4 +209,4 @@ layout: center
 class: text-center
 ---
 
-<h1 class="text-white text-4xl font-bold">see you later 👋</h1>
+<h1 class="gradient-heading text-4xl font-bold">see you later 👋</h1>

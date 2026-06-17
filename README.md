@@ -9,7 +9,7 @@
 ### 主な特徴
 
 - **統一されたデザインシステム**: `design_system/`に完全ドキュメント化された再利用可能なコンポーネント
-- **カラースキーム**: oklch color spaceを使用したグラデーション
+- **カラースキーム**: 白背景を標準にした oklch color space のアクセントカラー
 - **型安全性**: TypeScriptによる型定義とPropsバリデーション
 - **パッケージ管理**: Bunによる依存関係管理とビルド
 - **MCP連携**: Claude Code (serena, chrome-devtools) との統合開発環境
@@ -53,12 +53,13 @@ slidev-template/
 
 ## 🎨 デザインの特徴
 
-- **oklch color space**: Purple to Blue gradientのカラーパレット
+- **oklch color space**: 白背景に Purple to Blue gradient のアクセントを重ねるカラーパレット
 - **レスポンシブタイポグラフィ**: clamp()を使用した自動調整
 - **グラデーション見出し**: アニメーション付き
 - **曲線アンダーライン**: SVGベースのアンダーライン装飾
 - **View Transition対応**: ブラウザのView Transition API対応
 - **Emoji統合**: Twemoji対応
+- **白背景標準**: 生成スライドの背景は白基調で安定表示
 - **ダークモード**: 自動切り替え対応
 
 ## 🚀 セットアップ
@@ -76,6 +77,13 @@ bun run dev
 ```
 
 ブラウザで http://localhost:3030 が自動的に開きます。
+
+Task を使う場合:
+
+```bash
+task dev
+task white:dev
+```
 
 ### 3. スライド自動生成（ワークフロー）
 
@@ -98,6 +106,22 @@ bun run build
 
 静的ファイルが `dist/` ディレクトリに生成されます。
 
+Task を使う場合:
+
+```bash
+task build
+task white:build
+```
+
+### 4.1. 白背景版のプレビュー
+
+```bash
+task preview
+task white:preview
+```
+
+`dist/` をビルドしてから `http://localhost:4173` で配信します。停止する場合は `Ctrl-C` を押します。
+
 ### 5. PDF/PPTX/PNG エクスポート
 
 ```bash
@@ -106,6 +130,13 @@ bun run export
 
 初回実行時に playwright-chromium が自動インストールされます。
 
+Task を使う場合:
+
+```bash
+task export
+task white:pdf
+```
+
 ## 📝 カスタマイズ方法
 
 ### frontmatter設定（slides.mdの先頭）
@@ -113,6 +144,7 @@ bun run export
 ```yaml
 ---
 theme: seriph              # テーマ (seriph, default, geist)
+colorSchema: light         # 白背景で固定
 title: タイトル             # プレゼンテーションタイトル
 transition: slide-left     # トランジション効果
 highlighter: shiki         # シンタックスハイライター
@@ -160,9 +192,17 @@ mdc: true                  # MDC構文
 
 テキストにパルスアニメーションのシャドウを追加します。
 
-### スライド背景グラデーション
+### スライド背景
 
-全スライドに共通の背景グラデーション（上辺中央から横長に広がる青グラデーション）が自動適用されます。追加クラスは不要です。
+全スライドは白背景が自動適用されます。追加クラスは不要です。
+
+旧来のグレー基調グラデーションを一部のスライドで使いたい場合は、スライド frontmatter に `class: soft-gradient-bg` を指定します。
+
+```md
+---
+class: soft-gradient-bg
+---
+```
 
 ### Emoji
 
@@ -249,6 +289,7 @@ const code = 'example'
 
 テンプレートで使用している oklch カラー:
 
+- **Background**: White
 - **Primary**: Purple (270度)
 - **Secondary**: Blue-Purple (240度)
 - **Accent**: Blue (210度)

@@ -56,7 +56,8 @@ design_system/
   subtitle="サブタイトル"
   event="イベント名"
   author="あなたの名前"
-  :social="{ github: 'username', twitter: 'username' }"
+  background="cyanTop"
+  :social="{ github: 'username', x: 'username' }"
 />
 ```
 

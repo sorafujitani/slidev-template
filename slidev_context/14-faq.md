@@ -171,9 +171,8 @@ For advanced features:
 ```md
 ---
 fonts:
-  sans: 'Roboto'
-  serif: 'Roboto Slab'
-  mono: 'Fira Code'
+  sans: 'Noto Sans JP'
+  mono: 'SFMono-Regular'
 ---
 ```
 

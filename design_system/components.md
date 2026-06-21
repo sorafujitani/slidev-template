@@ -131,8 +131,11 @@ SNS リンク集を表示するコンポーネント。
 | Prop | Type | Default | 説明 |
 |------|------|---------|------|
 | github | String | '' | GitHub ユーザー名 |
-| twitter | String | '' | Twitter/X ユーザー名 |
+| x | String | '' | X ユーザー名 |
+| twitter | String | '' | X ユーザー名（互換用） |
 | linkedin | String | '' | LinkedIn ユーザー名 |
+| website | String | '' | Web サイト URL |
+| variant | 'icon' \| 'text' | 'icon' | icon-only または icon + text |
 | size | String | '2xl' | アイコンサイズ（Tailwind） |
 | gap | Number | 2 | アイコン間の間隔 |
 
@@ -140,9 +143,16 @@ SNS リンク集を表示するコンポーネント。
 
 ```vue
 <SocialLinks
-  github="fs0414"
-  twitter="_fs0414"
+  github="sorafujitani"
+  x="sorafujitani"
   size="xl"
+/>
+
+<SocialLinks
+  variant="text"
+  github="sorafujitani"
+  x="sorafujitani"
+  website="https://sorafujitani.me/"
 />
 ```
 
@@ -162,7 +172,7 @@ SNS リンク集を表示するコンポーネント。
 
 **After**:
 ```vue
-<SocialLinks github="fs0414" twitter="_fs0414" />
+<SocialLinks github="sorafujitani" x="sorafujitani" />
 ```
 
 ---
@@ -179,13 +189,16 @@ SNS リンク集を表示するコンポーネント。
 | subtitle | String | '' | サブタイトル |
 | event | String | '' | イベント名 |
 | author | String | '' | 著者名 |
-| social | Object | {} | SNS情報 { github, twitter, linkedin } |
+| social | Object | {} | SNS情報 { github, x, twitter, linkedin, website } |
 | gradient | Boolean | true | グラデーション見出しを使用 |
+| background | 'plain' \| 'cyanTop' | 'cyanTop' | 表紙背景。`cyanTop` は PDF export 向けに rgb 透過を使用 |
+| compact | Boolean | false | 長い LT タイトル向けにタイトルをさらに控えめにする |
 
 #### デザインの特徴
 
-- **タイトル**: 通常のh1より大きく表示（`clamp(2rem, 5vw, 3.5rem)`）
-- **イベント名/著者名**: 右寄せで配置、控えめな灰色
+- **タイトル**: 長い LT タイトル前提で控えめに表示（`clamp(1.4rem, 2.7vw, 2rem)`）
+- **イベント名/著者名**: `event / author` の順で中央下に配置
+- **背景**: `cyanTop` では上部に水色グラデーションを表示。PDF export での変色を避けるため `rgb(... / alpha)` を使用
 - **SNSアイコン**: 右下に自動配置
 
 #### 使用例
@@ -196,7 +209,8 @@ SNS リンク集を表示するコンポーネント。
   subtitle="サブタイトルや説明"
   event="イベント名"
   author="fujitani sora"
-  :social="{ github: 'fs0414', twitter: '_fs0414' }"
+  background="cyanTop"
+  :social="{ github: 'sorafujitani', x: 'sorafujitani' }"
 />
 ```
 
@@ -235,13 +249,55 @@ SNS リンク集を表示するコンポーネント。
   subtitle="サブタイトルや簡単な説明"
   event="イベント名"
   author="fujitani sora"
-  :social="{ github: 'fs0414', twitter: '_fs0414' }"
+  :social="{ github: 'sorafujitani', x: 'sorafujitani' }"
 />
 ```
 
 ---
 
-### 6. CenteredImage
+### 6. ProfileSlide
+
+プロフィールページを少ない記述で作成するコンポーネント。
+
+#### Props
+
+| Prop | Type | Default | 説明 |
+|------|------|---------|------|
+| name | String | '' | 表示名 |
+| affiliation | String | '' | 所属 |
+| x | String | '' | X ユーザー名 |
+| github | String | '' | GitHub ユーザー名 |
+| website | String | '' | Web サイト URL |
+| avatar | String | '' | 上部のプロフィール画像 URL |
+| secondaryImage | String | '' | 下部の補助画像 URL |
+| items | Array | [] | 任意のプロフィール項目。`{ icon, label, href }` |
+| leftOffset | String | '5.5rem' | 左カラムの縦位置 |
+| avatarWidth | String | '280px' | プロフィール画像幅 |
+| secondaryImageWidth | String | '180px' | 補助画像幅 |
+
+#### 使用例
+
+```vue
+<ProfileSlide
+  name="fujitani sora"
+  affiliation="toridori inc engineer"
+  x="sorafujitani"
+  github="sorafujitani"
+  website="https://sorafujitani.me/"
+  avatar="https://example.com/profile.png"
+  :items="[
+    { icon: 'calendar', label: '2001 (25)' },
+  ]"
+/>
+```
+
+#### items の icon
+
+`calendar`, `building`, `x`, `github`, `website`, `link` を指定できます。
+
+---
+
+### 7. CenteredImage
 
 画像を中央配置し、シャドウ効果を追加するコンポーネント。
 
@@ -325,23 +381,17 @@ SNS リンク集を表示するコンポーネント。
 ### 自己紹介スライド
 
 ```vue
-<TwoColumnLayout>
-  <template #left>
-
-- **fujitani sora** / @_fs0414
-- <EmojiText emoji="🏢">株式会社トリドリ</EmojiText>
-- <EmojiText emoji="🎤">TSKaigiの運営</EmojiText>
-- <EmojiText emoji="💻">技育CAMPメンター</EmojiText>
-
-  </template>
-  <template #right>
-    <CenteredImage
-      src="https://your-image.png"
-      alt="プロフィール"
-      width="320px"
-    />
-  </template>
-</TwoColumnLayout>
+<ProfileSlide
+  name="fujitani sora"
+  affiliation="toridori inc engineer"
+  x="sorafujitani"
+  github="sorafujitani"
+  website="https://sorafujitani.me/"
+  avatar="https://your-image.png"
+  :items="[
+    { icon: 'calendar', label: '2001 (25)' },
+  ]"
+/>
 ```
 
 ### 最終スライド
@@ -354,8 +404,8 @@ SNS リンク集を表示するコンポーネント。
 
   <div class="mt-8">
     <SocialLinks
-      github="fs0414"
-      twitter="_fs0414"
+      github="sorafujitani"
+      x="sorafujitani"
     />
   </div>
 </div>

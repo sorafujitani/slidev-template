@@ -44,6 +44,9 @@ yarn add -D playwright-chromium
 # Export to PDF (default)
 slidev export
 
+# Template recommended PDF export
+bun run export -- --per-slide --output slides-export.pdf
+
 # Export to PPTX
 slidev export --format pptx
 
@@ -133,6 +136,30 @@ slidev export \
 ```
 
 ## Important Notes
+
+### Template Visual Checks
+
+PDF export 後は、最低限以下を確認します。
+
+1. 表紙背景色がブラウザ表示と PDF で大きく変わっていないか
+2. 表紙の水色グラデーションが赤 / ピンクに変色していないか
+3. コードブロックがはみ出していないか
+4. 画像が欠けていないか
+5. 余白がスライドごとに極端に崩れていないか
+6. export 中に warning が出ても、最後に `exported to ...` が出ているか
+
+### Color Stability
+
+PDF export で色が変わる背景には `oklch(... / alpha)` を避けます。
+特に cover の透過グラデーションは `rgb(... / alpha)` の方が安定しやすいです。
+
+`CoverSlide background="cyanTop"` は、この前提で実装されています。
+
+### Warning and Failure
+
+Slidev / VueUse の warning が出ても export 自体は成功することがあります。
+最後に `exported to ...` が出て PDF が生成されていれば、まず出力ファイルを目視確認します。
+プロセスが non-zero exit で終了した場合は失敗として扱います。
 
 ### Limitations
 

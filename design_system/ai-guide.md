@@ -68,11 +68,13 @@
   subtitle="サブタイトル"
   event="イベント名"
   author="著者名"
-  :social="{ github: 'username', twitter: 'username' }"
+  background="cyanTop"
+  :social="{ github: 'username', x: 'username' }"
 />
 ```
 
 **重要**: 表紙は `CoverSlide` コンポーネントを必ず使用する。
+長い LT タイトルでは `compact` を付ける。
 
 ---
 
@@ -119,28 +121,24 @@ const example = 'code'
 
 ---
 
-### 2カラムスライド（自己紹介）
+### プロフィールスライド
 
 ```vue
-<TwoColumnLayout>
-  <template #left>
-
-- **名前** / @handle
-- <EmojiText emoji="🏢">会社名</EmojiText>
-- <EmojiText emoji="💻">活動内容</EmojiText>
-
-  </template>
-  <template #right>
-
-<CenteredImage
-  src="プロフィール画像URL"
-  alt="プロフィール"
-  width="320px"
+<ProfileSlide
+  name="fujitani sora"
+  affiliation="toridori inc engineer"
+  x="sorafujitani"
+  github="sorafujitani"
+  website="https://sorafujitani.me/"
+  avatar="プロフィール画像URL"
+  :items="[
+    { icon: 'calendar', label: '2001 (25)' },
+  ]"
 />
-
-  </template>
-</TwoColumnLayout>
 ```
+
+**使用シーン**: 自己紹介、登壇者紹介、About slide
+**重要**: `about me` 見出しや手動 grid は不要。任意項目は `items` に追加する。
 
 ---
 
@@ -175,7 +173,7 @@ class: text-center
 <div class="mt-8">
   <SocialLinks
     github="username"
-    twitter="username"
+    x="username"
   />
 </div>
 ```
@@ -227,6 +225,51 @@ const user: User = {
 
 **`{2-4|6-8|all}`**: クリックごとに2-4行目→6-8行目→全体の順でハイライト
 
+### パターン4: compact code block
+
+~~~md
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export const value = 'example'
+```
+
+</div>
+~~~
+
+**使用シーン**: 2-8 行程度の実コード抜粋、ファイル名や行番号を見せたい時
+
+### パターン5: 生成コード紹介
+
+~~~md
+# config file を生成する
+
+<div class="nested-compact">
+
+- 生成コマンド
+  - `bun run generate && bun run build`
+- 生成された型定義を短い抜粋で見せる
+  - `src/generated/config.ts`
+
+</div>
+
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export interface GeneratedConfig {
+  featureExample?: FeatureExampleOptions
+}
+```
+
+</div>
+~~~
+
+**重要**: deck 固有の実コードをテンプレートに入れない。例は generic な dummy にする。
+
 ---
 
 ## コンポーネント選択チャート
@@ -237,16 +280,25 @@ const user: User = {
 1. 表紙か？
    → Yes: CoverSlide
 
-2. 2カラムレイアウトか？
+2. プロフィールか？
+   → Yes: ProfileSlide
+
+3. 生成コマンド + 生成コード抜粋か？
+   → Yes: nested-compact + code-compact + code-caption
+
+4. 短いコード抜粋か？
+   → Yes: code-compact + code-caption
+
+5. 2カラムレイアウトか？
    → Yes: TwoColumnLayout
 
-3. セクション区切りか？
+6. セクション区切りか？
    → Yes: layout: center
 
-4. 画像を中央に表示？
+7. 画像を中央に表示？
    → Yes: CenteredImage
 
-5. それ以外
+8. それ以外
    → デフォルトレイアウト
 ```
 
@@ -282,6 +334,15 @@ const user: User = {
 | 上余白（中） | `mt-8` | `<div class="mt-8">` |
 | 上余白（大） | `mt-12` | `<div class="mt-12">` |
 | 上余白（特大） | `mt-20` | `<div class="mt-20">` |
+
+### コード・リスト
+
+| 用途 | クラス | 使用例 |
+|------|-------|--------|
+| ファイル名/行番号 | `code-caption` | `<div class="code-caption">src/example.ts:1</div>` |
+| compact code | `code-compact` | `<div class="code-compact">...</div>` |
+| code の上下余白を詰める | `code-tight` | `<div class="code-compact code-tight">...</div>` |
+| ネスト箇条書き | `nested-compact` | `<div class="nested-compact">...</div>` |
 
 ---
 
@@ -359,31 +420,14 @@ transition: slide-left  # これは不要（デフォルトで設定済み）
 ユーザーが「自己紹介スライドを作って」と依頼した場合:
 
 ```vue
-<TwoColumnLayout>
-  <template #left>
-
-# 自己紹介
-
-- **名前** / @handle
-- <EmojiText emoji="🏢">会社名・ソフトウェアエンジニア</EmojiText>
-- <EmojiText emoji="🎤">活動1</EmojiText>
-- <EmojiText emoji="💻">活動2</EmojiText>
-
-<br>
-
-👋 はじめまして！
-
-  </template>
-  <template #right>
-
-<CenteredImage
-  src="プロフィール画像URL"
-  alt="プロフィール"
-  width="320px"
+<ProfileSlide
+  name="名前"
+  affiliation="会社名・ソフトウェアエンジニア"
+  x="username"
+  github="username"
+  website="https://example.com/"
+  avatar="プロフィール画像URL"
 />
-
-  </template>
-</TwoColumnLayout>
 ```
 
 ---

@@ -6,22 +6,22 @@ class: text-center
 highlighter: shiki
 lineNumbers: true
 shikiConfig:
-  theme: 'nord'
+  theme: 'balanced-dark'
 drawings:
   persist: false
 transition: slide-left
 title: プレゼンテーションタイトル
 mdc: true
 fonts:
-  sans: 'Roboto'
-  serif: 'Roboto Slab'
-  mono: 'Fira Code'
+  sans: 'Noto Sans JP'
+  mono: 'SFMono-Regular'
 ---
 
 <CoverSlide
   title="プレゼンテーションタイトル"
   event="イベント名"
   author="fujitani sora"
+  background="cyanTop"
 />
 
 <!--
@@ -30,46 +30,17 @@ fonts:
 
 ---
 
-<div style="padding: 0 8%">
-
-## about me
-
-<div class="grid grid-cols-[1fr_1fr] items-start gap-8">
-  <div>
-    <p class="text-2xl font-bold mb-4" style="color: oklch(0.7 0.15 215)">fujitani sora</p>
-    <div class="flex flex-col gap-3 text-lg font-semibold">
-      <div class="flex items-center gap-2">
-        <carbon-building class="text-lg" />
-        <span>toridori inc engineer</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <carbon-logo-x class="text-lg" />
-        <a href="https://x.com/_fs0414">@_fs0414</a>
-      </div>
-      <div class="flex items-center gap-2">
-        <carbon-logo-github class="text-lg" />
-        <a href="https://github.com/fs0414">github.com/fs0414</a>
-      </div>
-      <div class="flex items-center gap-2">
-        <carbon-globe class="text-lg" />
-        <a href="https://sorafujitani.me/">sorafujitani.me</a>
-      </div>
-    </div>
-  </div>
-  <div class="flex justify-center" style="margin-top: -1.5rem">
-    <CenteredImage
-      src="https://raw.githubusercontent.com/fs0414/imgs/main/fs0414_dot_image.png"
-      alt="プロフィール画像"
-      width="280px"
-    />
-  </div>
-</div>
-
-<div class="mt-6 text-sm" style="color: var(--color-text-muted)">
-  ここに最近のTipsを記載
-</div>
-
-</div>
+<ProfileSlide
+  name="fujitani sora"
+  affiliation="toridori inc engineer"
+  x="sorafujitani"
+  github="sorafujitani"
+  website="https://sorafujitani.me/"
+  avatar="https://raw.githubusercontent.com/fs0414/imgs/main/fs0414_dot_image.png"
+  :items="[
+    { icon: 'calendar', label: '2001 (25)' },
+  ]"
+/>
 
 ---
 
@@ -92,7 +63,7 @@ fonts:
 
 # コードハイライト
 
-TypeScriptのコード例:
+TypeScript のコード例:
 
 ```ts {2-4|6-8|all}
 // コードハイライトの例
@@ -111,9 +82,49 @@ console.log(user)
 
 <v-click>
 
-JetBrains Mono フォントでコードを見やすく表示
+system monospace で ligature を無効化して表示
 
 </v-click>
+
+---
+
+# compact code block
+
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts {1-2}
+"feature/example"?: RuleNoConfig
+  | [Severity, FeatureExampleOptions]
+```
+
+</div>
+
+---
+
+# 生成コード紹介
+
+<div class="nested-compact">
+
+- 生成コマンド
+  - `bun run generate && bun run build`
+- 生成された型定義を短い抜粋で見せる
+  - `src/generated/config.ts`
+
+</div>
+
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export interface GeneratedConfig {
+  featureExample?: FeatureExampleOptions
+}
+```
+
+</div>
 
 ---
 layout: two-cols

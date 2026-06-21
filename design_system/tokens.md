@@ -98,14 +98,21 @@ background: linear-gradient(135deg,
 ### フォントファミリー
 
 ```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP',
-             'Helvetica Neue', Arial, sans-serif;
+font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
+             'Yu Gothic', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 ```
+
+本文・見出しは `Noto Sans JP` を主にします。英語と日本語の太さが大きくズレる指定を避けるためです。
 
 **コード用フォント**:
 ```css
-font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+font-family: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas,
+             'Liberation Mono', monospace;
+font-variant-ligatures: none;
+font-feature-settings: "liga" 0, "calt" 0;
 ```
+
+コードは system monospace を使い、`=>` が ligature で別記号に見えないようにします。
 
 ### フォントサイズ
 
@@ -151,14 +158,36 @@ Tailwind CSS の標準スケールを使用:
 | `mt-16` | 4rem | 非常に大きい余白 |
 | `mt-20` | 5rem | 特大の余白 |
 
-### 標準パディング（参考スライド準拠）
+### 標準パディング
 
-スライド全体のパディングは **3%（水平）/ 7%（垂直）** に標準化されています。
+スライド全体のパディングは **9%（水平）/ 6%（垂直）** に標準化されています。
+通常スライドの内容が左上に寄りすぎないよう、縦方向は中央寄せを基本にします。
 
 ```css
 .slidev-layout {
-  padding: 7% 3%; /* 垂直7%, 水平3% */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6% 9%;
 }
+```
+
+### 表紙背景
+
+`CoverSlide background="cyanTop"` は、PDF export での色変化を避けるため `oklch(... / alpha)` ではなく `rgb(... / alpha)` の透過グラデーションを使います。
+
+```css
+background:
+  radial-gradient(ellipse 132% 72% at 50% -14%,
+    rgb(118 220 232 / 0.9) 0%,
+    rgb(178 234 241 / 0.68) 48%,
+    transparent 78%
+  ),
+  linear-gradient(180deg,
+    rgb(224 246 250) 0%,
+    var(--color-bg) 58%,
+    var(--color-bg) 100%
+  );
 ```
 
 ### よく使うスペーシングパターン

@@ -10,6 +10,8 @@
 4. [セクション区切り](#セクション区切り)
 5. [最終スライド](#最終スライド)
 6. [画像表示](#画像表示)
+7. [compact code block](#compact-code-block)
+8. [生成コード紹介](#生成コード紹介)
 
 ---
 
@@ -55,7 +57,8 @@
   subtitle="サブタイトルや簡単な説明"
   event="イベント名"
   author="fujitani sora"
-  :social="{ github: 'fs0414', twitter: '_fs0414' }"
+  background="cyanTop"
+  :social="{ github: 'sorafujitani', x: 'sorafujitani' }"
 />
 ```
 
@@ -101,35 +104,22 @@
 ### After（コンポーネント）
 
 ```vue
-<TwoColumnLayout :gap="8">
-  <template #left>
-
-- **fujitani sora** / @_fs0414
-- <EmojiText emoji="🏢">株式会社トリドリ・software engineer</EmojiText>
-- <EmojiText emoji="🎤">TSKaigiの運営</EmojiText>
-- <EmojiText emoji="💻">技育CAMPの公式メンター</EmojiText>
-- <EmojiText emoji="🌆">shibuyatsの運営</EmojiText>
-
-<br>
-
-👋 はじめまして！
-
-  </template>
-  <template #right>
-
-<CenteredImage
-  src="https://example.com/profile.png"
-  alt="プロフィール"
-  width="320px"
+<ProfileSlide
+  name="fujitani sora"
+  affiliation="toridori inc engineer"
+  x="sorafujitani"
+  github="sorafujitani"
+  website="https://sorafujitani.me/"
+  avatar="https://example.com/profile.png"
+  :items="[
+    { icon: 'calendar', label: '2001 (25)' },
+  ]"
 />
-
-  </template>
-</TwoColumnLayout>
 ```
 
 **改善点**:
-- **より明確な構造**: left/right スロットで分離
-- **絵文字付きテキストが簡潔**
+- **プロフィール構造が明確**: 名前、任意項目、SNS、画像を props で指定
+- **任意項目に対応**: `2001 (25)` のような行を `items` に追加できる
 - **画像の配置が自動化**
 - 可読性の向上
 
@@ -279,8 +269,8 @@ class: text-center
 
 <div class="mt-8">
   <SocialLinks
-    github="fs0414"
-    twitter="_fs0414"
+    github="sorafujitani"
+    x="sorafujitani"
   />
 </div>
 ```
@@ -325,6 +315,91 @@ class: text-center
 - **75% のコード削減**（8行 → 4行）
 - **props で簡単な調整**
 - 一貫したスタイル
+
+---
+
+## compact code block
+
+### Before（通常コードブロック）
+
+~~~md
+```ts
+export const value = 'example'
+```
+~~~
+
+**問題点**:
+- 短い抜粋でも余白が大きい
+- ファイル名や行番号の置き場が毎回ばらつく
+
+### After（utility）
+
+~~~md
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export const value = 'example'
+```
+
+</div>
+~~~
+
+**改善点**:
+- 2-8 行程度の抜粋が収まりやすい
+- filename / line number の見せ方が揃う
+
+---
+
+## 生成コード紹介
+
+### Before（説明とコードを個別に手動調整）
+
+~~~md
+- コマンド: `bun run generate && bun run build`
+- ファイル: `src/generated/config.ts`
+
+```ts
+export interface GeneratedConfig {
+  featureExample?: FeatureExampleOptions
+}
+```
+~~~
+
+**問題点**:
+- command / file / code の階層が読み取りづらい
+- コードブロックが大きく、1枚に収まりづらい
+
+### After（nested-compact + code-compact）
+
+~~~md
+<div class="nested-compact">
+
+- 生成コマンド
+  - `bun run generate && bun run build`
+- 生成された型定義を短い抜粋で見せる
+  - `src/generated/config.ts`
+
+</div>
+
+<div class="code-compact code-tight">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export interface GeneratedConfig {
+  featureExample?: FeatureExampleOptions
+}
+```
+
+</div>
+~~~
+
+**改善点**:
+- 親子 bullet の意味が分かれる
+- 生成コマンドと生成コード抜粋を1枚に収めやすい
+- deck 固有の実コードをテンプレートに入れずに pattern だけ共有できる
 
 ---
 

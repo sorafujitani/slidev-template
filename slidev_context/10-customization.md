@@ -28,9 +28,8 @@ exportFilename: my-slides
 # Appearance
 colorSchema: auto
 fonts:
-  sans: 'Roboto'
-  serif: 'Roboto Slab'
-  mono: 'Fira Code'
+  sans: 'Noto Sans JP'
+  mono: 'SFMono-Regular'
 
 # Presenter mode
 presenter: true
@@ -328,9 +327,8 @@ export default defineContextMenuSetup(() => {
 ```md
 ---
 fonts:
-  sans: 'Roboto'
-  serif: 'Roboto Slab'
-  mono: 'Fira Code'
+  sans: 'Noto Sans JP'
+  mono: 'SFMono-Regular'
   weights: '200,400,600,800'
   provider: 'google'
 ---

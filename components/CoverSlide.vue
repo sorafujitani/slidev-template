@@ -9,19 +9,31 @@ interface Props {
   author?: string
   social?: {
     github?: string
+    x?: string
     twitter?: string
     linkedin?: string
+    website?: string
   }
   gradient?: boolean
+  background?: 'plain' | 'cyanTop'
+  compact?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   gradient: true,
+  background: 'cyanTop',
+  compact: false,
 })
 </script>
 
 <template>
-  <div class="cover-slide">
+  <div
+    class="cover-slide"
+    :class="[
+      background === 'cyanTop' ? 'cover-cyan-top' : 'cover-plain',
+      compact ? 'cover-compact' : '',
+    ]"
+  >
     <div class="cover-content">
       <h1 v-if="!gradient" class="cover-title" v-html="title">
       </h1>
@@ -42,8 +54,10 @@ const props = withDefaults(defineProps<Props>(), {
     <div v-if="social" class="cover-social">
       <SocialLinks
         :github="social.github"
+        :x="social.x"
         :twitter="social.twitter"
         :linkedin="social.linkedin"
+        :website="social.website"
         size="xl"
       />
     </div>
@@ -55,6 +69,27 @@ const props = withDefaults(defineProps<Props>(), {
 .slidev-layout:has(.cover-slide) {
   padding: 0 !important;
 }
+
+.slidev-page:has(.cover-slide) {
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+.slidev-page:has(.cover-slide.cover-cyan-top) {
+  background:
+    radial-gradient(
+      ellipse 132% 72% at 50% -14%,
+      rgb(118 220 232 / 0.9) 0%,
+      rgb(178 234 241 / 0.68) 48%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(224 246 250) 0%,
+      var(--color-bg) 58%,
+      var(--color-bg) 100%
+    ) !important;
+}
 </style>
 
 <style scoped>
@@ -63,16 +98,22 @@ const props = withDefaults(defineProps<Props>(), {
   inset: 0;
   display: grid;
   place-items: center;
+  padding: 7% 9%;
 }
 
 .cover-content {
   text-align: center;
+  width: min(76ch, 100%);
+  transform: translateX(-0.6%);
 }
 
 .cover-title {
   margin-bottom: 0;
-  font-size: clamp(1.8rem, 4vw, 3rem) !important;
-  line-height: 1.1;
+  font-size: clamp(1.4rem, 2.7vw, 2rem) !important;
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .cover-subtitle {
@@ -80,9 +121,8 @@ const props = withDefaults(defineProps<Props>(), {
   line-height: 1.6;
 }
 
-.cover-title {
-  font-weight: 900;
-  letter-spacing: -0.03em;
+.cover-compact .cover-title {
+  font-size: clamp(1.2rem, 2.4vw, 1.72rem) !important;
 }
 
 .cover-meta {
@@ -93,6 +133,8 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .cover-social {
-  margin-top: 2rem;
+  position: absolute;
+  right: 2rem;
+  bottom: 1.75rem;
 }
 </style>

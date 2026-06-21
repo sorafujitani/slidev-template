@@ -135,6 +135,77 @@
 
 ---
 
+## コード表示
+
+### code-caption（ファイル名・行番号）
+
+コードブロックの直前に、ファイル名や行番号を控えめに表示します。
+
+```html
+<div class="code-caption">src/generated/config.ts:12</div>
+```
+
+### code-compact（小さめのコードブロック）
+
+2-8 行程度の短い抜粋を、1枚のスライドに収めたい時に使います。
+
+~~~md
+<div class="code-compact">
+
+<div class="code-caption">src/generated/config.ts:12</div>
+
+```ts
+export const value = 'example'
+```
+
+</div>
+~~~
+
+**特徴**:
+- `.shiki` の padding と font-size を小さくする
+- filename caption と組み合わせる
+- 生成コード紹介や実コード抜粋に向く
+
+### code-tight（上下余白を詰める）
+
+コードブロックの上下余白を小さくします。
+
+~~~md
+<div class="code-compact code-tight">
+
+```ts
+const value = 'example'
+```
+
+</div>
+~~~
+
+---
+
+## リスト
+
+### nested-compact（ネストした箇条書き）
+
+親 bullet を説明、子 bullet を command / file / code id として見せたい時に使います。
+
+```md
+<div class="nested-compact">
+
+- 生成コマンド
+  - `bun run generate`
+- 出力ファイル
+  - `src/generated/config.ts`
+
+</div>
+```
+
+**特徴**:
+- 子 bullet の色を少し控えめにする
+- 2 階層までを読みやすくする
+- inline code が本文から分かれる
+
+---
+
 ## 組み合わせ例
 
 ### 3カラムレイアウト
@@ -192,6 +263,10 @@ Tailwindのユーティリティは引き続き使用できます：
 - `animated-shadow`
 - `gradient-heading`
 - `curved-underline`
+- `code-caption`
+- `code-compact`
+- `code-tight`
+- `nested-compact`
 
 ---
 

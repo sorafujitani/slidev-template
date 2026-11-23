@@ -67,8 +67,9 @@ const profileItems = computed(() => [
       </h1>
 
       <div class="profile-items">
-        <a
+        <component
           v-for="(item, index) in profileItems"
+          :is="item.href ? 'a' : 'div'"
           :key="`${item.label}-${index}`"
           class="profile-item"
           :href="item.href"
@@ -83,7 +84,7 @@ const profileItems = computed(() => [
             <carbon-link v-else />
           </span>
           <span>{{ item.label }}</span>
-        </a>
+        </component>
       </div>
     </section>
 
@@ -112,7 +113,7 @@ const profileItems = computed(() => [
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: 3rem;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
 }
 
 .profile-left {
@@ -137,12 +138,14 @@ const profileItems = computed(() => [
   align-items: center;
   gap: 0.6rem;
   width: fit-content;
+  max-width: 100%;
   color: var(--color-text);
   border-bottom: 0 !important;
   font-size: clamp(0.98rem, 1.6vw, 1.16rem);
   font-weight: 650;
   line-height: 1.35;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .profile-item[href]:hover {
@@ -164,12 +167,14 @@ const profileItems = computed(() => [
   justify-content: center;
   gap: 1.4rem;
   min-width: 0;
+  min-height: 0;
 }
 
 .profile-avatar,
 .profile-secondary-image {
   display: block;
   max-width: 100%;
+  min-height: 0;
   height: auto;
   object-fit: contain;
 }

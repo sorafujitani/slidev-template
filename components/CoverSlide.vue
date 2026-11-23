@@ -104,16 +104,17 @@ const props = withDefaults(defineProps<Props>(), {
 .cover-content {
   text-align: center;
   width: min(76ch, 100%);
-  transform: translateX(-0.6%);
 }
 
-.cover-title {
+.cover-slide .cover-title {
   margin-bottom: 0;
+  margin-inline: 0;
   font-size: clamp(1.4rem, 2.7vw, 2rem) !important;
   font-weight: 800;
   line-height: 1.16;
   letter-spacing: -0.02em;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 
 .cover-subtitle {
@@ -121,7 +122,7 @@ const props = withDefaults(defineProps<Props>(), {
   line-height: 1.6;
 }
 
-.cover-compact .cover-title {
+.cover-slide.cover-compact .cover-title {
   font-size: clamp(1.2rem, 2.4vw, 1.72rem) !important;
 }
 

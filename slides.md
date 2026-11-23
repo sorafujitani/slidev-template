@@ -10,15 +10,16 @@ shikiConfig:
 drawings:
   persist: false
 transition: slide-left
-title: プレゼンテーションタイトル
+title: 小さな自動化をチームで育てるための設計と運用
 mdc: true
 fonts:
+  provider: none
   sans: 'Noto Sans JP'
-  mono: 'SFMono-Regular'
+  mono: ui-monospace
 ---
 
 <CoverSlide
-  title="プレゼンテーションタイトル"
+  title="小さな自動化をチームで育てるための設計と運用を、型定義の生成を例に考える"
   event="イベント名"
   author="fujitani sora"
   background="cyanTop"
@@ -48,16 +49,13 @@ fonts:
 
 ## サブ見出し
 
-通常のテキストはこのように表示されます。oklch color spaceを使用した美しいカラーパレットが特徴です。
+通常のテキストと箇条書きの例です。
 
 - <EmojiText emoji="✨">リスト項目1</EmojiText>
 - <EmojiText emoji="🎨">リスト項目2</EmojiText>
   - ネストしたリスト
   - ネストしたリスト2
 - <EmojiText emoji="🚀">リスト項目3</EmojiText>
-
-> これは引用テキストです。
-> 重要な情報を強調するのに便利です。
 
 ---
 
@@ -145,9 +143,8 @@ layout: two-cols
 右側のコンテンツ
 
 ```js
-// コード例
-const hello = 'world'
-console.log(hello)
+const greet = (name) => `Hello, ${name}!`
+console.log(greet('world'))
 ```
 
 ---
@@ -166,9 +163,7 @@ console.log(hello)
 
 </v-clicks>
 
-<br>
-
-<div class="mt-8">
+<div class="code-compact">
 
 ```css
 .gradient-heading {
@@ -220,4 +215,4 @@ layout: center
 class: text-center
 ---
 
-<h1 class="gradient-heading text-4xl font-bold">see you later 👋</h1>
+<GradientHeading class="text-4xl font-bold">see you later 👋</GradientHeading>

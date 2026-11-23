@@ -36,6 +36,8 @@ pnpm add -D playwright-chromium
 yarn add -D playwright-chromium
 ```
 
+このテンプレートでは `playwright-chromium` を同梱しています。ブラウザ実行ファイルが見つからない場合は、依存関係をインストールしたあと `bun run playwright install chromium` を実行してください。
+
 ## Export Commands
 
 ### Basic Export
@@ -154,6 +156,8 @@ PDF export で色が変わる背景には `oklch(... / alpha)` を避けます�
 特に cover の透過グラデーションは `rgb(... / alpha)` の方が安定しやすいです。
 
 `CoverSlide background="cyanTop"` は、この前提で実装されています。
+
+`CoverSlide` のタイトルなど、`GradientHeading` を使った見出しは PDF 出力時に単色で描画されます。グラデーションを文字の形で切り抜く CSS は、PDF ビューアによって文字を覆う矩形として描画される場合があります。
 
 ### Warning and Failure
 

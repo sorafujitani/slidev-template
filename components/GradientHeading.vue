@@ -1,25 +1,30 @@
 <script setup lang="ts">
+import { useNav } from '@slidev/client'
+
 interface Props {
   tag?: 'h1' | 'h2' | 'h3'
   animated?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   tag: 'h1',
   animated: false,
 })
+
+const { isPrintMode } = useNav()
 </script>
 
 <template>
   <component
     :is="tag"
-    class="gradient-heading"
-    :class="{ 'animated-shadow': animated }"
+    :class="isPrintMode ? 'print-heading' : ['gradient-heading', { 'animated-shadow': animated }]"
   >
     <slot />
   </component>
 </template>
 
 <style scoped>
-/* スタイルは既に style.css に定義されているため、追加の定義は不要 */
+.print-heading {
+  color: var(--color-primary);
+}
 </style>

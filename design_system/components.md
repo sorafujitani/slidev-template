@@ -190,7 +190,7 @@ SNS リンク集を表示するコンポーネント。
 | event | String | '' | イベント名 |
 | author | String | '' | 著者名 |
 | social | Object | {} | SNS情報 { github, x, twitter, linkedin, website } |
-| gradient | Boolean | true | グラデーション見出しを使用 |
+| gradient | Boolean | true | 表示時はグラデーション見出し、PDF 出力時は単色の見出しを使用 |
 | background | 'plain' \| 'cyanTop' | 'cyanTop' | 表紙背景。`cyanTop` は PDF export 向けに rgb 透過を使用 |
 | compact | Boolean | false | 長い LT タイトル向けにタイトルをさらに控えめにする |
 

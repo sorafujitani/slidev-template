@@ -160,14 +160,14 @@ Tailwind CSS の標準スケールを使用:
 
 ### 標準パディング
 
-スライド全体のパディングは **9%（水平）/ 6%（垂直）** に標準化されています。
-通常スライドの内容が左上に寄りすぎないよう、縦方向は中央寄せを基本にします。
+通常スライドのパディングは **9%（水平）/ 6%（垂直）** です。
+内容が収まるときは縦方向の中央に配置し、高さを超える場合は上端から配置します。
 
 ```css
-.slidev-layout {
+.slidev-layout.default {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: safe center;
   padding: 6% 9%;
 }
 ```

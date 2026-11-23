@@ -31,7 +31,8 @@
 }
 
 /* フォント設定 */
-:root {
+:root,
+.slidev-layout {
   font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans',
                'Yu Gothic', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
   font-feature-settings: "palt";
@@ -56,11 +57,11 @@
     linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
 }
 
-/* レイアウト設定 */
-.slidev-layout {
+/* 通常スライドのレイアウト設定 */
+.slidev-layout.default {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: safe center;
   padding: 6% 9%;
 }
 
@@ -169,11 +170,15 @@ blockquote {
 }
 
 /* コードブロック */
-code {
+code,
+.slidev-layout code {
   font-family: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas,
                'Liberation Mono', monospace;
   font-variant-ligatures: none;
   font-feature-settings: "liga" 0, "calt" 0;
+}
+
+.slidev-layout :not(pre) > code {
   font-size: 0.9em;
   padding: 0.2em 0.4em;
   border-radius: 4px;
@@ -181,7 +186,7 @@ code {
   color: oklch(0.42 0.15 235);
 }
 
-.dark code {
+.dark .slidev-layout :not(pre) > code {
   background: oklch(0.25 0.045 235);
   color: oklch(0.82 0.12 235);
 }
@@ -247,9 +252,8 @@ pre code .line span {
 
 /* シンタックスハイライトは setup/shiki.ts のカスタムテーマで制御 */
 
-.shiki .line-number {
-  color: #83a7b3 !important;
-  opacity: 0.78;
+.slidev-code-line-numbers .slidev-code code .line::before {
+  color: #83a7b3;
 }
 
 .code-caption {
@@ -358,10 +362,13 @@ img {
 
 /* 配置ユーティリティ */
 .center {
+  text-align: center;
+}
+
+.center:not(.slidev-layout) {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .right {
